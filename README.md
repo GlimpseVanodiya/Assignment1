@@ -1,5 +1,3 @@
-I got the user interface for the web from a student of mine, Pat Wilken.
-
 To run:
 
 1. The first time run `npm install`
