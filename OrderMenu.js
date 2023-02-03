@@ -23,6 +23,7 @@ module.exports = class BurgerKingOrder extends Order{
         this.sDrinks = "";
         this.sphoneNumber = "";
         this.sItem = "burger";
+        this.rate=0;
     }
     handleInput(sInput){
         let aReturn = [];
@@ -52,9 +53,24 @@ module.exports = class BurgerKingOrder extends Order{
                 this.svegNonveg = sInput;
                 aReturn.push("What size would you like?");
                 break;
+                //error for size 
             case OrderState.SIZE:
                 this.stateCur = OrderState.DIPPING
                 this.sSize = sInput;
+                    if(this.sSize=="s" || this.sSize== "S"){
+                        this.rate= this.rate + 20;
+                    }
+                    else if(this.sSize=="m" || this.sSize== "M"){
+                        this.rate= this.rate + 25;
+                    }
+                    else if(this.sSize=="l"  || this.sSize== "L"){
+                        this.rate= this.rate + 30;
+                    }
+                    else{
+                        aReturn.push("incorrect input")
+                        this.stateCur= OrderState.SIZE
+                        break;
+                    }
                 aReturn.push("Which dipping sauce would you like?");
                 break;
             case OrderState.DIPPING:
@@ -75,9 +91,11 @@ module.exports = class BurgerKingOrder extends Order{
                 let d = new Date(); 
                 d.setMinutes(d.getMinutes() + 20);
                 if(this.sdeliveryMethod == "take out"){
-                    aReturn.push(`Please ${this.sName} pick it up at ${d.toTimeString()}. You will receive text message on ${this.sphoneNumber}.`);
+                    aReturn.push(`Please ${this.sName} pick it up at ${d.toTimeString()}. You will receive text message on ${this.sphoneNumber}.`)
+                    aReturn.push( `Total amount is ${this.rate}`);
                 } else{
-                    aReturn.push(`${this.sName}, we will reserve table for you at ${d.toTimeString()}. You will receive text message on ${this.sphoneNumber}.`);
+                    aReturn.push(`${this.sName}, we will reserve table for you at ${d.toTimeString()}. You will receive text message on ${this.sphoneNumber}.`)
+                    aReturn.push( `Total amount is ${this.rate}`);
                 }            
                 break;
         }
