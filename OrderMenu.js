@@ -177,7 +177,7 @@ module.exports = class PastaSaladOrder extends Order{
       if(sAmount != "-1"){
         this.nOrder = sAmount;
       }
-      const sClientID = process.env.SB_CLIENT_ID || 'AfZmG_uAIoDJrH-oK4bxDupTan45CupJ9_JWhlWO0aoLDTsOBv206NVV112g1kw30ZR0r0Lohd_1WJxF'
+      const sClientID = process.env.SB_CLIENT_ID || 'Place your paypal client id here......'
       return(`
       <!DOCTYPE html>
   
