@@ -8,7 +8,8 @@ const OrderState = Object.freeze({
     DIPPING : Symbol("dipping"),
     PHONENUMBER: Symbol("phone"),
     DRINKS:  Symbol("drinks"),
-    PAYMENT: Symbol("payment")
+    PAYMENT: Symbol("payment"),
+    SIZE : Symbol("symbol")
 });
 
 module.exports = class PastaSaladOrder extends Order{
@@ -177,7 +178,7 @@ module.exports = class PastaSaladOrder extends Order{
       if(sAmount != "-1"){
         this.rrate = sAmount;
       }
-      const sClientID = process.env.SB_CLIENT_ID || 'Place your paypal client id here......'
+      const sClientID = process.env.SB_CLIENT_ID || ''
       return(`
       <!DOCTYPE html>
   
@@ -201,7 +202,7 @@ module.exports = class PastaSaladOrder extends Order{
                 return actions.order.create({
                   purchase_units: [{
                     amount: {
-                      value: '${this.nOrder}'
+                      value: '${this.rrate}'
                     }
                   }]
                 });
