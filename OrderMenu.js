@@ -175,7 +175,7 @@ module.exports = class PastaSaladOrder extends Order{
         this.sItem = sTitle;
       }
       if(sAmount != "-1"){
-        this.nOrder = sAmount;
+        this.rrate = sAmount;
       }
       const sClientID = process.env.SB_CLIENT_ID || 'Place your paypal client id here......'
       return(`
@@ -191,7 +191,7 @@ module.exports = class PastaSaladOrder extends Order{
         <script
           src="https://www.paypal.com/sdk/js?client-id=${sClientID}"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
         </script>
-        Thank you ${this.sNumber} for your ${this.sItem} order of $${this.nOrder}.
+        Thank you ${this.sphoneNumber} for your ${this.spastaSalad} order of $${this.rrate}.
         <div id="paypal-button-container"></div>
   
         <script>
