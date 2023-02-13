@@ -21,6 +21,7 @@ module.exports = class PastaSaladOrder extends Order{
         this.sSelect = "";
         this.sDipping = "";
         this.sDrink = "";
+        this.sSize = "";
         this.sphoneNumber = "";
         this.rate = 0;
         this.rrate = 0;
@@ -61,12 +62,16 @@ module.exports = class PastaSaladOrder extends Order{
                 this.stateCur = OrderState.SELECT;
                 this.spastaSalad = sInput;
                 if(this.spastaSalad == "pasta"){
-                  aReturn.push("ChickenRose - 20$ (Type - ChickenRose)");
-                  aReturn.push("VegitableGrilled - 25$ (Type - VegitableGrilled)");
+                  aReturn.push("ChickenRose - 20$ ")
+                    aReturn.push("Type - ChickenRose")
+                    aReturn.push("VegitableGrilled - 25$");
+                    aReturn.push("Type - VegitableGrilled")
                 }
                 else if(this.spastaSalad == "salad"){
-                  aReturn.push("FarmarsMarket - 10$ (Type - FarmarsMarket)")
-                  aReturn.push("ApplePecan - 15$ (Type - ApplePecan)");
+                  aReturn.push("FarmarsMarket - 10$")
+                    aReturn.push("Type - FarmarsMarket")
+                    aReturn.push("ApplePecan - 15$");
+                    aReturn.push("Type - ApplePecan")
                   break;
                 }
                 else {
@@ -101,14 +106,20 @@ module.exports = class PastaSaladOrder extends Order{
                   aReturn.push("Example - 'ApplePecan' ")
                   this.stateCur = OrderState.SELECT;
               }
-              aReturn.push("Please select dipping for you");
-              aReturn.push("Ranch - 5$ (Type - Ranch)");
-              aReturn.push("Bluecheese - 4$ (Type - Bluecheese)");
-              aReturn.push("Hotsauce - 3$ (Type - Hotsauce)");
+              aReturn.push("Please select Dipping for you")
+              aReturn.push("Ranch - 5$")
+              aReturn.push("Type - Ranch ")
+
+              aReturn.push("Bluecheese - 4$")
+              aReturn.push("Type - Bluecheese")
+
+              aReturn.push("Hotsauce - 3$")
+              aReturn.push("Type - Hotsauce")
               break;
+              
 
             case OrderState.DIPPING:
-              this.stateCur = OrderState.DRINKS;
+              this.stateCur = OrderState.SIZE;
               this.sDipping = sInput;
               if(this.sDipping == "Ranch"){
                 this.rrate = this.rrate + 5;
@@ -122,16 +133,45 @@ module.exports = class PastaSaladOrder extends Order{
                 this.rrate = this.rrate + 3;
                 aReturn.push("Hotsauce will be added");
               }
-              else{
-                aReturn.push("Please type correct name for dipping. For e.g. 'Hotsauce'");
-                this.stateCur = OrderState.DIPPING;
+              else {
+                aReturn.push("please write full name for selection")
+                aReturn.push("Example - 'Hotsauce' ")
+                this.stateCur= OrderState.DIPPING
                 break;
               }
-              aReturn.push("Would you like to drink for $5?");
-              aReturn.push("Coke (Type - Coke)");
-              aReturn.push("Sprite (Type - Sprite)");
-              aReturn.push("Nestea (Type - Nestea)");
+              aReturn.push("Please select your Size of food ");
+              aReturn.push("Please type  'Medium' ");
+              aReturn.push("Please type  'Large' ");
+             
               break;
+
+              case OrderState.SIZE:
+              this.stateCur = OrderState.DRINKS;
+              this.sSize = sInput;
+              if(this.sSize == "Medium" || this.sSize == "medium" ){
+                this.rrate = this.rrate + 10;
+                aReturn.push ("Thankyou for choicing medium" + this.sSelect)
+            }
+            else if(this.sSize == "Large" || this.sSize == "large" ){
+              this.rrate = this.rrate + 20;
+              aReturn.push ("Thankyou for choicing large" + this.sSelect)
+            }
+            else{
+                  aReturn.push("please write full name for selection")
+                  aReturn.push("Example - 'Medium' ")
+                  this.stateCur =OrderState.SIZE
+                  break;
+              }
+              aReturn.push("Would you like to Drinks for $5 ");
+              aReturn.push ("Coke")
+              aReturn.push("Type - Coke")
+              aReturn.push ("Sprite")
+              aReturn.push("Type - Sprite")
+              aReturn.push ("Nestea")
+              aReturn.push("Type - Nestea")
+              break;
+
+             
               
             case OrderState.DRINKS:
                 this.stateCur = OrderState.PAYMENT;
@@ -140,13 +180,13 @@ module.exports = class PastaSaladOrder extends Order{
                     this.sDrinks = sInput;
                 }
                 else if(this.sDrink == "Coke"){
-                  this.rrate += 5;
+                  this.rrate = this.rrate + 5;
                 }
                 else if(this.sDrink == "Sprite"){
-                  this.rrate += 5;
+                  this.rrate = this.rrate + 5;
                 }
                 else if(this.sDrink == "Nestea"){
-                  this.rrate += 10;
+                  this.rrate = this.rrate + 5;
                 }
                 else{
                   aReturn.push("Please write proper name for drinks. For e.g. 'Coke'");
